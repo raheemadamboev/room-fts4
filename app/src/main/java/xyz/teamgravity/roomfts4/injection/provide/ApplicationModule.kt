@@ -9,6 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import xyz.teamgravity.roomfts4.data.local.constant.ParagraphConst
 import xyz.teamgravity.roomfts4.data.local.dao.ParagraphDao
 import xyz.teamgravity.roomfts4.data.local.database.ParagraphDatabase
+import xyz.teamgravity.roomfts4.data.repository.ParagraphRepository
 import javax.inject.Singleton
 
 @Module
@@ -26,4 +27,8 @@ object ApplicationModule {
     @Provides
     @Singleton
     fun provideParagraphDao(paragraphDatabase: ParagraphDatabase): ParagraphDao = paragraphDatabase.paragraphDao()
+
+    @Provides
+    @Singleton
+    fun provideParagraphRepository(paragraphDao: ParagraphDao): ParagraphRepository = ParagraphRepository(paragraphDao)
 }
