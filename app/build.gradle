@@ -75,6 +75,9 @@ dependencies {
     // compose material3
     implementation 'androidx.compose.material3:material3:1.0.0-alpha15'
 
+    // compose html
+    implementation 'com.github.ireward:compose-html:1.0.2'
+
     // lifecycle
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
 
