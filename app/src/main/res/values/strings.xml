@@ -3,4 +3,9 @@
 
     <!-- Paragraph -->
     <string name="paragraphs">Paragraphs</string>
+    <string name="search">Search…</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_search">Search</string>
+    <string name="cd_cancel_search">Cancel search</string>
 </resources>

@@ -6,7 +6,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import xyz.teamgravity.roomfts4.data.repository.ParagraphRepository
 import javax.inject.Inject
@@ -16,14 +19,23 @@ class ParagraphViewModel @Inject constructor(
     private val repository: ParagraphRepository,
 ) : ViewModel() {
 
+    companion object {
+        private const val DELAY_SEARCH = 1_000L
+    }
+
     var paragraphs: List<String> by mutableStateOf(emptyList())
+        private set
+
+    var query: String by mutableStateOf("")
         private set
 
     var searchExpanded: Boolean by mutableStateOf(false)
         private set
 
+    private var searchJob: Job? = null
+
     init {
-        observe()
+        viewModelScope.launch { getParagraphs() }
     }
 
     fun onSearchExpanded() {
@@ -32,17 +44,27 @@ class ParagraphViewModel @Inject constructor(
 
     fun onSearchCollapsed() {
         searchExpanded = false
+        onQueryChange("")
     }
 
-    private fun observe() {
-        observeParagraphs()
+    fun onQueryChange(value: String) {
+        query = value
+        searchParagraph()
     }
 
-    private fun observeParagraphs() {
-        viewModelScope.launch {
-            repository.getParagraphs().collectLatest { paragraphs ->
-                this@ParagraphViewModel.paragraphs = paragraphs.map { it.paragraph }
+    private suspend fun getParagraphs() {
+        paragraphs = repository.getParagraphs().first().map { it.paragraph }
+    }
+
+    private fun searchParagraph() {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            if (query.isBlank()) {
+                getParagraphs()
+                cancel()
             }
+            delay(DELAY_SEARCH)
+            paragraphs = repository.searchParagraph(query).first()
         }
     }
 }
