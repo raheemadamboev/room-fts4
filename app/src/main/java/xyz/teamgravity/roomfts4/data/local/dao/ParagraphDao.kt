@@ -17,6 +17,6 @@ interface ParagraphDao {
     @Query("SELECT * FROM $TABLE_PARAGRAPH ORDER BY id ASC")
     fun getParagraphs(): Flow<List<ParagraphEntity>>
 
-    @Query("SELECT SNIPPET($FTS_PARAGRAPH) FROM $TABLE_PARAGRAPH JOIN $FTS_PARAGRAPH ON $TABLE_PARAGRAPH.id == $FTS_PARAGRAPH.rowid WHERE $FTS_PARAGRAPH.paragraph MATCH :query ORDER BY $TABLE_PARAGRAPH.id ASC")
+    @Query("SELECT SNIPPET($FTS_PARAGRAPH) FROM $TABLE_PARAGRAPH JOIN $FTS_PARAGRAPH ON $TABLE_PARAGRAPH.id = $FTS_PARAGRAPH.rowid WHERE $FTS_PARAGRAPH MATCH :query")
     fun searchParagraph(query: String): Flow<List<String>>
 }
