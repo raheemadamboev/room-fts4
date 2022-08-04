@@ -8,6 +8,6 @@ import xyz.teamgravity.roomfts4.data.local.constant.ParagraphConst
 data class ParagraphEntity(
 
     @PrimaryKey
-    val id: Int,
+    val id: Long,
     val paragraph: String,
 )
