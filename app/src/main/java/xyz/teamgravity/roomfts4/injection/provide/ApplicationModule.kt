@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import xyz.teamgravity.roomfts4.data.local.constant.ParagraphConst
+import xyz.teamgravity.roomfts4.data.local.dao.ParagraphDao
 import xyz.teamgravity.roomfts4.data.local.database.ParagraphDatabase
 import javax.inject.Singleton
 
@@ -21,4 +22,8 @@ object ApplicationModule {
             .createFromAsset("database/paragraphs.db")
             .fallbackToDestructiveMigration()
             .build()
+
+    @Provides
+    @Singleton
+    fun provideParagraphDao(paragraphDatabase: ParagraphDatabase): ParagraphDao = paragraphDatabase.paragraphDao()
 }
