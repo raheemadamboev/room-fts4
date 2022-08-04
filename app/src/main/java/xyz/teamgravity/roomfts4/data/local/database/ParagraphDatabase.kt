@@ -9,7 +9,8 @@ import xyz.teamgravity.roomfts4.data.local.fts.ParagraphFtsEntity
 
 @Database(
     entities = [ParagraphEntity::class, ParagraphFtsEntity::class],
-    version = ParagraphConst.VERSION
+    version = ParagraphConst.VERSION,
+    exportSchema = false
 )
 abstract class ParagraphDatabase : RoomDatabase() {
 
