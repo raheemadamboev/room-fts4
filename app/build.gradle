@@ -87,3 +87,13 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.3"
     kapt "androidx.room:room-compiler:2.4.3"
 }
+
+allprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            freeCompilerArgs += [
+                    "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
+            ]
+        }
+    }
+}
