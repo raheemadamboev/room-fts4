@@ -1,4 +1,4 @@
-package xyz.teamgravity.roomfts4.ui.theme
+package xyz.teamgravity.roomfts4.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

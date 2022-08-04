@@ -1,4 +1,4 @@
-package xyz.teamgravity.roomfts4.ui.theme
+package xyz.teamgravity.roomfts4.presentation.theme
 
 import android.app.Activity
 import android.os.Build
