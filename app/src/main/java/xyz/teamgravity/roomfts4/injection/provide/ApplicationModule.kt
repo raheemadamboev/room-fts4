@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import xyz.teamgravity.roomfts4.data.local.callback.ParagraphCallback
 import xyz.teamgravity.roomfts4.data.local.constant.ParagraphConst
 import xyz.teamgravity.roomfts4.data.local.dao.ParagraphDao
 import xyz.teamgravity.roomfts4.data.local.database.ParagraphDatabase
@@ -18,9 +19,14 @@ object ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideParagraphDatabase(application: Application): ParagraphDatabase =
+    fun provideParagraphCallback(): ParagraphCallback = ParagraphCallback()
+
+    @Provides
+    @Singleton
+    fun provideParagraphDatabase(application: Application, paragraphCallback: ParagraphCallback): ParagraphDatabase =
         Room.databaseBuilder(application, ParagraphDatabase::class.java, ParagraphConst.NAME)
             .createFromAsset("database/paragraphs.db")
+            .addCallback(paragraphCallback)
             .fallbackToDestructiveMigration()
             .build()
 
