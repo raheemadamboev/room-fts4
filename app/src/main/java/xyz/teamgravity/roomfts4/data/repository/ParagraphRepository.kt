@@ -1,6 +1,8 @@
 package xyz.teamgravity.roomfts4.data.repository
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import xyz.teamgravity.roomfts4.core.util.Helper
 import xyz.teamgravity.roomfts4.data.local.dao.ParagraphDao
@@ -21,5 +23,15 @@ class ParagraphRepository(
 
     fun searchParagraph(query: String): Flow<List<String>> {
         return dao.searchParagraph(Helper.sanitizeQuery(query))
+    }
+
+    fun searchParagraphRanked(query: String): Flow<List<String>> {
+        return dao.searchParagraphRanked(query)
+            .flowOn(Dispatchers.IO)
+            .map { entities ->
+                entities
+                    .sortedByDescending { Helper.calculateScore(it.matchInfo) }
+                    .map { it.paragraph.paragraph }
+            }
     }
 }
