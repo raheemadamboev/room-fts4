@@ -64,7 +64,7 @@ class ParagraphViewModel @Inject constructor(
                 cancel()
             }
             delay(DELAY_SEARCH)
-            paragraphs = repository.searchParagraph(query).first()
+            paragraphs = repository.searchParagraphRanked(query).first()
         }
     }
 }
