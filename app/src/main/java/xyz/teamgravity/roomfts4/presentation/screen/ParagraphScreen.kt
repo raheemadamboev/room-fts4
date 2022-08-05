@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.text.HtmlCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ireward.htmlcompose.HtmlText
 import xyz.teamgravity.roomfts4.R
@@ -89,6 +88,7 @@ fun ParagraphScreen(
                 ) {
                     HtmlText(
                         text = paragraph,
+                        style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(16.dp)
                     )
                 }
