@@ -5,9 +5,9 @@ object Helper {
     /**
      * Escape FTS special characters - and "
      */
-    fun sanitizeQuery(query: String): String {
+    fun ftsQuery(query: String): String {
         val replacedQuery = query.replace("\"", "\"\"")
-        return "*\"$replacedQuery\"*"
+        return "\"*$replacedQuery*\""
     }
 
     /**

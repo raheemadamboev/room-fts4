@@ -22,11 +22,11 @@ class ParagraphRepository(
     }
 
     fun searchParagraph(query: String): Flow<List<String>> {
-        return dao.searchParagraph(Helper.sanitizeQuery(query))
+        return dao.searchParagraph(Helper.ftsQuery(query))
     }
 
     fun searchParagraphRanked(query: String): Flow<List<String>> {
-        return dao.searchParagraphRanked(query)
+        return dao.searchParagraphRanked(Helper.ftsQuery(query))
             .flowOn(Dispatchers.IO)
             .map { entities ->
                 entities
